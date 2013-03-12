@@ -24,11 +24,16 @@ function f(t, key, range) {
 test('test range', function (t) {
   p(t, 'hi', {})
   p(t, 'hi', {start: '!', end: '~'})
+  p(t, 'hi', /^\w/)
   p(t, '---hi', {start: '!', end: '~'})
   p(t, 'a---hi', {start: 'A', end: 'z'})
   f(t, '---hi', {start: 'A', end: 'z'})
   p(t, 'hi', {start: 'a', end: 'z'})
   p(t, 'words~hi', ranges.prefix({start: 'a', end: 'z'}, 'words~'))
+  p(t, 'WORDS~hi', ranges.prefix(/^[a-z]/, 'WORDS~'))  
+
+  f(t, 'WORDS~X', ranges.prefix(/^[a-z]/, 'WORDS~'))
+
   f(t, 'word~hi', ranges.prefix({start: 'a', end: 'z'}, 'words~'))  
   t.end()
 })
