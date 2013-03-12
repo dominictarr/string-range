@@ -10,10 +10,15 @@ var range = exports.range = function (obj) {
 var prefix = exports.prefix = function (range, within, term) {
   range = exports.range(range)
   var _range = {}
-  if(range instanceof RegExp) {
+  if(range instanceof RegExp || 'function' == typeof range) {
     _range.start = within
     _range.end   = within + '~',
-    _range.inner = range
+    _range.inner = function (k) {
+      var j = k.substring(within.length)
+      if(range.test)
+        return range.test(j)
+      return range(j)
+    }
   }
   else if('object' === typeof range) {
     _range.start = within + (range.start || '')
@@ -39,7 +44,7 @@ var checker = exports.checker = function (range) {
       return (
         !range.start || key >= range.start
       ) && (
-        key <= range.end || !range.end
+        !range.end   || key <= range.end
       ) && (
         !range.inner || (
           range.inner.test 
