@@ -1,7 +1,7 @@
 {
   "name": "string-range",
   "description": "check if a string is within a range",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/dominictarr/string-range",
   "repository": {
     "type": "git",
