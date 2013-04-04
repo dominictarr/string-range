@@ -7,16 +7,18 @@ Check whether a string is within a range.
 ``` js
 var ranges = require('string-range')
 
-ranges.satisfies('hello', {start: 'a', end: 'z'})
+ranges.satisfies('hello', {min: 'a', max: 'z'})
 => true
-ranges.satisfies('Hello', {start: 'a', end: 'z'})
+ranges.satisfies('Hello', {min: 'a', max: 'z'})
 => false
 
 //force a range inside a prefix!
 
-ranges.satisfies('TYPE~key', ranges.prefix({start:'a', end:'z'}, 'TYPE')
+ranges.satisfies('TYPE~key', ranges.prefix({min:'a', max:'z'}, 'TYPE')
 => true
 ```
+
+`min` and `max` are alaises for `start` and `end`.
 
 ## License
 
