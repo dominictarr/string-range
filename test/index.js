@@ -38,6 +38,22 @@ test('test range', function (t) {
   t.end()
 })
 
+test('test range min,max', function (t) {
+
+  p(t, 'hi',     {min: '!', max: '~'})
+  p(t, '---hi',  {min: '!', max: '~'})
+  p(t, 'a---hi', {min: 'A', max: 'z'})
+  f(t, '---hi',  {min: 'A', max: 'z'})
+  p(t, 'hi',     {min: 'a', max: 'z'})
+  p(t, 'words~hi',
+    ranges.prefix({min: 'a', max: 'z'}, 'words~'))
+
+  f(t, 'word~hi',
+    ranges.prefix({min: 'a', max: 'z'}, 'words~'))  
+
+  t.end()
+})
+
 
 test('test range2', function (t) {
   p(t, 'hi', /^\w/)
