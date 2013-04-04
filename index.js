@@ -2,7 +2,7 @@
 //force to a valid range
 var range = exports.range = function (obj) {
   return null == obj ? {} : 'string' === typeof range ? {
-      start: range, end: range + '\xFF'
+      min: range, max: range + '\xff'
     } :  obj
 }
 
@@ -10,9 +10,10 @@ var range = exports.range = function (obj) {
 var prefix = exports.prefix = function (range, within, term) {
   range = exports.range(range)
   var _range = {}
+  term = term || '\xff'
   if(range instanceof RegExp || 'function' == typeof range) {
-    _range.start = within
-    _range.end   = within + '~',
+    _range.min = within
+    _range.max   = within + term,
     _range.inner = function (k) {
       var j = k.substring(within.length)
       if(range.test)
@@ -21,8 +22,8 @@ var prefix = exports.prefix = function (range, within, term) {
     }
   }
   else if('object' === typeof range) {
-    _range.start = within + (range.start || '')
-    _range.end = within + (range.end || (term || '~'))
+    _range.min = within + (range.min || range.start || '')
+    _range.max = within + (range.max || range.end   || (term || '~'))
   }
   return _range
 }
@@ -41,10 +42,12 @@ var checker = exports.checker = function (range) {
     }
   else if('object' === typeof range)
     return function (key) {
+      var min = range.min || range.start
+      var max = range.max || range.end
       return (
-        !range.start || key >= range.start
+        !min || key >= min
       ) && (
-        !range.end   || key <= range.end
+        !max || key <= max
       ) && (
         !range.inner || (
           range.inner.test 
