@@ -44,6 +44,10 @@ var checker = exports.checker = function (range) {
     return function (key) {
       var min = range.min || range.start
       var max = range.max || range.end
+
+      // fixes keys passed as ints from sublevels
+      key = String(key)
+
       return (
         !min || key >= min
       ) && (

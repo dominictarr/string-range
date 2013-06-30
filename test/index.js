@@ -63,3 +63,13 @@ test('test range2', function (t) {
   t.end()
 })
 
+
+test("test int key within range",function(t){
+  p(t,2,{start: '1', end: '3'})
+  t.end();
+})
+
+test("test int key within int range",function(t){
+  p(t,2,{start: 1, end: 3})
+  t.end();
+})
