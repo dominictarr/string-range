@@ -24,6 +24,7 @@ var prefix = exports.prefix = function (range, within, term) {
   else if('object' === typeof range) {
     _range.min = within + (range.min || range.start || '')
     _range.max = within + (range.max || range.end   || (term || '~'))
+    _range.reverse = !!range.reverse
   }
   return _range
 }
